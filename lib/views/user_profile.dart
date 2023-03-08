@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -91,12 +90,22 @@ class _userProfile extends State<userProfile> {
 
                           },)
                       ],),
-                    _createoneinfo(Icons.person_pin, 'Emplaoye name',false),
-                    _createoneinfo(Icons.key_outlined, 'Password',true),
-                    _createoneinfo(Icons.alternate_email, "Email",false),
-                    _createoneinfo(Icons.group, "Entreprise",false),
-                    _createoneinfo(Icons.work, "Job Title",false),
-                    _createoneinfo(Icons.phone, "phone number",false),
+                    _createoneinfo(Icons.person_pin, 'Employee name',
+                        TextEditingController(text: "ahmed"), false,"Employee_name"),
+                    _createoneinfo(Icons.key_outlined, 'Password',
+                        TextEditingController(text: "12546"), true,"Password"),
+                    _createoneinfo(
+                        Icons.alternate_email,
+                        "Email",
+                        TextEditingController(text: "ahmed0soltani@gmail.com"),
+                        false,"Email"),
+                    _createoneinfo(Icons.group, "Entreprise",
+                        TextEditingController(text: "Medianet"), false,"Entreprise"),
+                    _createoneinfo(Icons.work, "Job Title",
+                        TextEditingController(text: "Mobile dev"), false,"Job_title"),
+                    _createoneinfo(Icons.phone, "phone number",
+                        TextEditingController(text: "12344875"), false,"Phone"),
+
                     Container(
                       height: 50,
                     ),
@@ -105,7 +114,9 @@ class _userProfile extends State<userProfile> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Icon(Icons.online_prediction),
+
                           Icon(Icons.lock_clock_rounded),
+
                         ],
                       ),
                     )
@@ -115,7 +126,8 @@ class _userProfile extends State<userProfile> {
         ));
   }
   bool _obscureText = true;
-  _createoneinfo(IconData iconData, String info,bool password) {
+  _createoneinfo(IconData iconData, String info,
+      TextEditingController _defaultvalue, bool password,String type) {
     return Row(
       children: [
         Icon(iconData),
@@ -149,4 +161,11 @@ class _userProfile extends State<userProfile> {
             ]))
       ],
     );
-  }}
+  }
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+}
