@@ -91,12 +91,12 @@ class _userProfile extends State<userProfile> {
 
                           },)
                       ],),
-                    _createoneinfo(Icons.person_pin, 'Emplaoye name'),
-                    _createoneinfo(Icons.key_outlined, 'Password'),
-                    _createoneinfo(Icons.alternate_email, "Email"),
-                    _createoneinfo(Icons.group, "Entreprise"),
-                    _createoneinfo(Icons.work, "Job Title"),
-                    _createoneinfo(Icons.phone, "phone number"),
+                    _createoneinfo(Icons.person_pin, 'Emplaoye name',false),
+                    _createoneinfo(Icons.key_outlined, 'Password',true),
+                    _createoneinfo(Icons.alternate_email, "Email",false),
+                    _createoneinfo(Icons.group, "Entreprise",false),
+                    _createoneinfo(Icons.work, "Job Title",false),
+                    _createoneinfo(Icons.phone, "phone number",false),
                     Container(
                       height: 50,
                     ),
@@ -114,8 +114,8 @@ class _userProfile extends State<userProfile> {
           ],
         ));
   }
-
-  _createoneinfo(IconData iconData, String info) {
+  bool _obscureText = true;
+  _createoneinfo(IconData iconData, String info,bool password) {
     return Row(
       children: [
         Icon(iconData),
@@ -123,10 +123,30 @@ class _userProfile extends State<userProfile> {
           width: 10,
         ),
         Expanded(
-          child: TextFormField(
-            decoration: InputDecoration(labelText: info),
-          ),
-        )
+            child: Stack(children: [
+              TextFormField(
+                obscureText: password ? _obscureText : false,
+                controller: _defaultvalue,
+                decoration: InputDecoration(labelText: info),
+                textAlign: TextAlign.left,
+              ),
+
+              if (password)
+                Positioned(
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    child: GestureDetector(
+                        onTap: () {
+                          _togglePasswordVisibility();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          child: Icon(
+                            _obscureText ? Icons.visibility : Icons.visibility_off,
+                          ),
+                        )))
+            ]))
       ],
     );
   }}
